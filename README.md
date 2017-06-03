@@ -4,7 +4,7 @@ This is a WIP chatbot for Facebook Messenger mainly intended for group chats. Mo
 
 Run with start.js to restart after crashes.
 
-To see what the bot can do, type:
+To see what the bot can do, send this message to the bot:
 ```bash
 max help
 ```
