@@ -1,4 +1,4 @@
-#Facebook Chatbot (Max)
+# Facebook Chatbot (Max)
 
 This is a WIP chatbot for Facebook Messenger mainly intended for group chats.
 
@@ -8,7 +8,7 @@ To see what the bot can do, type "max help".
 
 Message the bot here: https://www.facebook.com/profile.php?id=100015922144680
 
-##API's used:
+## API's used:
 https://github.com/Schmavery/facebook-chat-api (Unofficial API, I plan on remaking the bot using the official API eventually)
 Wolfram Alpha Short Answers API
 Oxford Dictionaries API
