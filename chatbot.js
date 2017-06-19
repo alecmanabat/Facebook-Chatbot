@@ -874,8 +874,15 @@ login({
     appState: JSON.parse(fs.readFileSync(config.stateFile, "utf8"))
 }, (err, api) => {
     if (err) return console.error(err);
-    //use this to get a state file
-    //fs.writeFileSync('appstate.json', JSON.stringify(api.getAppState()));
+    //use this to get a state file when using the bot initially
+    /*
+    login({email: "config.fbEmail", password: "config.fbPassword"}, (err, api) => {
+        if(err) return console.error(err);
+
+        fs.writeFileSync('appstate.json', JSON.stringify(api.getAppState()));
+    });
+    */
+
     api.setOptions({
         logLevel: "silent",
         forceLogin: true,

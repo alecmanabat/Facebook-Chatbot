@@ -4,7 +4,8 @@
   "description": "A fun and useful bot meant for group chats on Facebook Messenger",
   "main": "chatbot.js",
   "scripts": {
-    "test": "echo test"
+    "test": "echo test",
+    "start": "node start.js"
   },
   "repository": {
     "type": "git",

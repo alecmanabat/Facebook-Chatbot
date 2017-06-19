@@ -1,4 +1,6 @@
 module.exports = {
+    fbEmail: "",
+    fbPassword: "",
     stateFile: "./appstate.json",
     devID: "",
     dictionaryID: "",
