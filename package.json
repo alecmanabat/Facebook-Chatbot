@@ -1,0 +1,35 @@
+{
+  "name": "max-chatbot",
+  "version": "1.0.0",
+  "description": "A fun and useful bot meant for group chats on Facebook Messenger",
+  "main": "chatbot.js",
+  "scripts": {
+    "test": "echo test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/alecmanabat/Facebook-Chatbot.git"
+  },
+  "keywords": [
+    "facebook",
+    "chat",
+    "bot",
+    "group",
+    "messenger"
+  ],
+  "author": "Alec Manabat",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/alecmanabat/Facebook-Chatbot/issues"
+  },
+  "homepage": "https://github.com/alecmanabat/Facebook-Chatbot#readme",
+  "dependencies": {
+    "facebook-chat-api": "Schmavery/facebook-chat-api",
+    "http": "0.0.0",
+    "https": "1.0.0",
+    "forever": "^0.15.3",
+    "mongodb": "^2.2.29",
+    "node-geocoder": "^3.16.0",
+    "request-promise": "^4.2.1"
+  }
+}

@@ -6,9 +6,8 @@ const http = require("http");
 const https = require("https");
 const MongoClient = require("mongodb").MongoClient;
 
-var mongoURI = fs.readFileSync("mongouri.txt").toString();
+var config = require("./config.js");
 
-//Buffer.from("Hello World").toString('base64')
 function startBot(api) {
     var debug = false;
     var spotifyToken;
@@ -18,16 +17,14 @@ function startBot(api) {
     authenticateSpotify();
     checkBirthdays();
 
-    MongoClient.connect(mongoURI, function(err, db) {
+    MongoClient.connect(config.mongoURI, function(err, db) {
         if (err) throw err;
         updateThreadsArray(db);
-        //change to var stopListening and call stopListening() to stop bot
         //bot actually starts here
         api.listen((err, event) => {
             if (err) return console.error(err);
             api.handleMessageRequest(event.threadID, true, (err) => {
                 if (err) console.log(err);
-                    //how to find thread id?
                 if (debug || allThreads.indexOf(event.threadID) != -1) {
                     listen(event);
                 }
@@ -68,7 +65,7 @@ function startBot(api) {
                         function(msg) {
                             if (!msg) return;
                             console.log("Sending Message: ", msg.text);
-                            //special cases not called back to here: spotify song, meme
+                            //some special commands not called back to here
                             if (msg.text && msg.text.length > 0) {
                                 api.sendMessage({
                                     body: msg.text
@@ -77,7 +74,6 @@ function startBot(api) {
                                 });
                             }
                             else {
-                                //text and url
                                 if (msg.url) {
                                     api.sendMessage({
                                         url: msg.url
@@ -99,12 +95,7 @@ function startBot(api) {
         var allCommands = [basicText, answer, weather, rave, spotify, title, meme, add, kick,
             nickname, dictionary, youtube, news, restart, broadcast
         ];
-        /* ideas:
-        sports scores
-        directions
-        jokes
-        games like guess a number
-        */
+
         var executed = false;
         if (message) {
             message = message.toLowerCase();
@@ -186,7 +177,7 @@ function startBot(api) {
             var match = regex.exec(msg);
             if (match && match.length > 0) {
                 executed = true;
-                if (senderID.toString() === fs.readFileSync("devid.txt").toString()) {
+                if (senderID.toString() === config.devID) {
                     restartBot();
                 }
                 else {
@@ -201,7 +192,7 @@ function startBot(api) {
             var match = regex.exec(msg);
             if (match && match.length > 0) {
                 executed = true;
-                if (senderID.toString() === fs.readFileSync("devid.txt").toString()) {
+                if (senderID.toString() === config.devID) {
                     var message = msg.substring(msg.indexOf("broadcast") + 10, msg.length);
                     console.log("broadcasting: " + message);
                     for (let i = 0; i < allThreads.length; i++) {
@@ -232,9 +223,7 @@ function startBot(api) {
                 var question = msg.substring(msg.indexOf("answer") + 7, msg.length);
                 question = question.replace(/\+/g, "%2B");
                 question = question.replace(/ /g, "+");
-                // try using this instead
-                /* question = encodeURI(question) */
-                var url = "http://api.wolframalpha.com/v1/result?appid=" + fs.readFileSync("wolframkey.txt")
+                var url = "http://api.wolframalpha.com/v1/result?appid=" + config.wolframKey
                     + "&i=" + question;
                 rp(url).then(function(html) {
                     return callback({
@@ -264,7 +253,6 @@ function startBot(api) {
                 else {
                     word = msg.substring(msg.indexOf("synonym") + 8, msg.length);
                 }
-                // don't use encodeURI, needs to be underscore
                 var word2 = word.replace(/ /g, "_");
                 var url;
                 if (match && match.length > 0) {
@@ -274,20 +262,17 @@ function startBot(api) {
                 else {
                     url = "https://od-api.oxforddictionaries.com/api/v1/entries/en/" + word2 + "/synonyms";
                 }
-                var appID = fs.readFileSync("dictionaryid.txt");
-                var appkey = fs.readFileSync("dictionarykey.txt");
                 var options = {
                     uri: url,
                     headers: {
                         "Accept": "application/json",
-                        "app_id": appID,
-                        "app_key": appkey
+                        "app_id": config.dictionaryID,
+                        "app_key": config.dictionaryKey
                     },
                     json: true // Automatically parses the JSON string in the response
                 };
                 rp(options).then(function(json) {
                     console.log("got dictionary entries of " + word);
-                    console.log(json);
                     var data = json.results[0];
                     var response = word.toUpperCase() + "\n";
                     for (var i = 0; i < data.lexicalEntries.length; i++) {
@@ -334,10 +319,10 @@ function startBot(api) {
                 var query= msg.substring(msg.indexOf("youtube") + 8, msg.length);
                 query = query.replace(/\+/g, "%2B");
                 query = query.replace(/ /g, "+");
-                // try using this instead
+                // try using this instead?
                 /* question = encodeURI(question) */
                 var url = "https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=1&q=" + query
-                    + "&key="+ fs.readFileSync("youtubekey.txt");
+                    + "&key="+ config.youtubeKey;
 
                 rp(url).then(function(json) {
                     var response;
@@ -411,7 +396,7 @@ function startBot(api) {
                 executed = true;
                 var options = {
                     provider: "google",
-                    apiKey: fs.readFileSync("geocoderkey.txt", "utf8")
+                    apiKey: config.geocoderKey
                 };
                 var geocoder = NodeGeocoder(options);
                 console.log("getting geocode");
@@ -420,7 +405,7 @@ function startBot(api) {
                     var latitude = res[0].latitude;
                     var longitude = res[0].longitude;
                         //https://api.darksky.net/forecast/[key]/[latitude],[longitude]
-                    var url = "https://api.darksky.net/forecast/" + fs.readFileSync("weatherkey.txt", "utf8") +
+                    var url = "https://api.darksky.net/forecast/" + config.weatherkey +
                             "/" + latitude + "," + longitude;
                     console.log("getting weather");
                     rp(url).then(function(result) {
@@ -461,7 +446,7 @@ function startBot(api) {
                     source = "reuters";
                 }
                 var url = "https://newsapi.org/v1/articles?source=" + source + "&sortBy=top&apiKey="
-                + fs.readFileSync("newskey.txt");
+                + config.newsKey;
                 rp(url).then(function(results) {
                     var data = JSON.parse(results);
                     for (let i=0; i < 3; i++) {
@@ -834,7 +819,7 @@ function startBot(api) {
     }
 
     function authenticateSpotify() {
-        var spotifyKey = Buffer.from(fs.readFileSync("spotifykey.txt").toString()).toString("base64");
+        var spotifyKey = Buffer.from(config.spotifyKey).toString("base64");
         let options = {
             uri: "https://accounts.spotify.com/api/token",
             method: "POST",
@@ -886,10 +871,10 @@ function restartBot(){
 }
 
 login({
-    appState: JSON.parse(fs.readFileSync("appstate.json", "utf8"))
+    appState: JSON.parse(fs.readFileSync(config.stateFile, "utf8"))
 }, (err, api) => {
     if (err) return console.error(err);
-    //creates login file...use if current one expires?
+    //use this to get a state file
     //fs.writeFileSync('appstate.json', JSON.stringify(api.getAppState()));
     api.setOptions({
         logLevel: "silent",
