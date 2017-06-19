@@ -1,5 +1,8 @@
 # Facebook Chatbot (Max)
 
+[![NPM](https://nodei.co/npm/max-chatbot.png?compact=true)](https://www.npmjs.com/package/max-chatbot)
+
+
 This is a WIP chatbot for Facebook Messenger mainly intended for group chats. Most of it is finished.
 
 Run with start.js to restart after crashes.
