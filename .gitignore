@@ -1,3 +1,5 @@
 config.js
 appstate.json
 node_modules
+.eslintrc.js
+.ftpconfig
