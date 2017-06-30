@@ -114,7 +114,7 @@ function startBot(api) {
                     ]
                 ],
                 [
-                    [/^(woof|bork|meow|oink|quack|moo)$/i],
+                    [/^(woof|bork|meow|oink|quack|moo|bark|boof)$/i],
                     [
                         "woof", "bork"
                     ]
@@ -232,7 +232,7 @@ function startBot(api) {
                 }).catch(function(err) {
                     console.log("wolfram error:" + err);
                     return callback({
-                        text: "error"
+                        text: "Couldn't answer this question"
                     });
                 });
             }
@@ -405,7 +405,7 @@ function startBot(api) {
                     var latitude = res[0].latitude;
                     var longitude = res[0].longitude;
                         //https://api.darksky.net/forecast/[key]/[latitude],[longitude]
-                    var url = "https://api.darksky.net/forecast/" + config.weatherkey +
+                    var url = "https://api.darksky.net/forecast/" + config.weatherKey +
                             "/" + latitude + "," + longitude;
                     console.log("getting weather");
                     rp(url).then(function(result) {
