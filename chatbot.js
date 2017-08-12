@@ -810,12 +810,10 @@ function startBot(api) {
     }
 
     function getRandomColor() {
-        var letters = "0123456789ABCDEF";
-        var color = "#";
-        for (var i = 0; i < 6; i++) {
-            color += letters[Math.floor(Math.random() * 16)];
-        }
-        return color;
+        var colors = [null, "#44bec7", "#ffc300", "#fa3c4c", "#d696bb", "#6699cc", "#13cf13", "#ff7e29", "#e68585",
+            "#7646ff", "#20cef5", "#67b868", "#d4a88c", "#ff5ca1", "#a695c7"];
+
+        return randomFromArray(colors);
     }
 
     function authenticateSpotify() {
