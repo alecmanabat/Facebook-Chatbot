@@ -884,7 +884,8 @@ login({
     api.setOptions({
         logLevel: "silent",
         forceLogin: true,
-        listenEvents: true
+        //set to false until reaction bug fixed
+        listenEvents: false
     });
     startBot(api);
 });
