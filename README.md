@@ -2,7 +2,7 @@
 
 [![NPM](https://nodei.co/npm/max-chatbot.png?compact=true)](https://www.npmjs.com/package/max-chatbot)
 
-### Note
+#### Note
 Currently the main API used is bugged, so the bot will crash if installed with NPM.
 
 ## Message the bot [here](https://www.facebook.com/messages/t/100015922144680)
