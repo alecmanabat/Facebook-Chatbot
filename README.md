@@ -2,6 +2,7 @@
 
 [![NPM](https://nodei.co/npm/max-chatbot.png?compact=true)](https://www.npmjs.com/package/max-chatbot)
 
+## Message the bot [here](https://www.facebook.com/profile.php?id=100015922144680)
 
 This is a WIP chatbot for Facebook Messenger mainly intended for group chats. Most of it is finished.
 
@@ -12,7 +13,7 @@ To see what the bot can do, send this message to the bot:
 max help
 ```
 
-Message the bot [here](https://www.facebook.com/profile.php?id=100015922144680)
+
 
 ## API's used:
  * https://github.com/Schmavery/facebook-chat-api (Unofficial API, I plan on remaking the bot using the official API eventually)
