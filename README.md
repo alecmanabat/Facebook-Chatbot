@@ -7,7 +7,7 @@ Currently the main API used is bugged, so the bot will crash if installed with N
 
 ## Message the bot [here](https://www.facebook.com/messages/t/100015922144680)
 
-This is a WIP chatbot for Facebook Messenger mainly intended for group chats. Most of it is finished.
+This is a WIP chatbot for Facebook Messenger mainly intended for group chats.
 
 Run with start.js to restart after crashes.
 
