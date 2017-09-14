@@ -2,6 +2,9 @@
 
 [![NPM](https://nodei.co/npm/max-chatbot.png?compact=true)](https://www.npmjs.com/package/max-chatbot)
 
+### Note
+Currently the main API used is bugged, so the bot will crash if installed with NPM.
+
 ## Message the bot [here](https://www.facebook.com/messages/t/100015922144680)
 
 This is a WIP chatbot for Facebook Messenger mainly intended for group chats. Most of it is finished.
