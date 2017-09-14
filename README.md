@@ -23,4 +23,4 @@ max help
  * Dark Sky API (https://darksky.net/poweredby/)
  * News API (https://newsapi.org/)
  * Reddit API
- * Spotify API
+ * Spotify Web API
